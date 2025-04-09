@@ -1,0 +1,26 @@
+name: Generate feed
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Dependencies
+        run: |
+              python -m pip insall --upgrade pip
+              pip install pyyaml
+      - name: Run feed generator
+        run: python feed.py
+      - name: Push Repo
+        run : |
+          git config  user.name me-AC
+          git config user.email abhinavchaudhary2014@gmail.com
+          git add .
+          git commit -m "Modified Feed"
+          git push
+    
